@@ -1,6 +1,6 @@
 const Navbar = () => {
   return (
-    <nav className="flex justify-between items-center px-[26px] h-[73px]">
+    <nav className="flex justify-between items-center px-[26px] h-[73px] bg-[#f5f5f5]">
       <h1 className="font-bold text-[24px] leading-[22px] text-[#23272E]">
         Dashboard
       </h1>
@@ -44,12 +44,12 @@ const Navbar = () => {
               strokeLinejoin="round"
             />
           </svg>
-          <span className="absolute top-0 right-0 inline-flex items-center justify-center px-1.5 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
+          <span className="absolute top-0 right-0 inline-flex items-center justify-center px-1.5 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-[#EA5455] rounded-full">
             4
           </span>
         </button>
         <button className="relative w-[38px] h-[38px] rounded-full bg-[#7367F0] flex items-center justify-center text-white font-semibold focus:outline-none">
-          <span className="absolute bottom-0 right-0 block w-3 h-3 bg-green-400 rounded-full border-2 border-white"></span>
+          <span className="absolute bottom-0 right-0 block w-3 h-3 bg-[#28C76F] rounded-full border-2 border-white" />
         </button>
       </div>
     </nav>

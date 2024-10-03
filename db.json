@@ -1,0 +1,134 @@
+{
+  "dashboard": {
+    "totalSalesAndCosts": {
+      "value": 350000,
+      "currency": "USD",
+      "change": 8560,
+      "period": "Last 7 days"
+    },
+    "totalProfit": {
+      "value": 50000,
+      "currency": "USD",
+      "changePercentage": 12,
+      "period": "Last 7 days"
+    },
+    "salesByCountry": [
+      {
+        "country": "United States",
+        "value": 30000,
+        "changePercentage": 25.8,
+        "trend": "up"
+      },
+      {
+        "country": "Brazil",
+        "value": 26000,
+        "changePercentage": 16.2,
+        "trend": "down"
+      },
+      {
+        "country": "Australia",
+        "value": 17000,
+        "changePercentage": 11.9,
+        "trend": "down"
+      }
+    ]
+  },
+  "user": {
+    "name": "Robert Fox",
+    "email": "robert@gmail.com",
+    "contactNumber": "(201) 555-0124",
+    "dateOfBirth": "1985-01-01",
+    "memberSince": "2023-03-03",
+    "shippingAddress": "3517 W. Gray St. Utica, Pennsylvania 57867",
+    "orders": {
+      "total": 150,
+      "completed": 140,
+      "canceled": 10
+    }
+  },
+  "ordersMetadata": {
+    "total": 10
+  },
+  "recentOrders": [
+    {
+      "id": "5089",
+      "customer": "Susan Khadka",
+      "date": "2023-04-06",
+      "total": 2564,
+      "method": "CC",
+      "status": "Completed"
+    },
+    {
+      "id": "5089",
+      "customer": "Abhinabh Khadka",
+      "date": "2023-04-06",
+      "total": 2564,
+      "method": "CC",
+      "status": "Pending"
+    },
+    {
+      "id": "5089",
+      "customer": "Sujit Tiwari",
+      "date": "2023-04-06",
+      "total": 2564,
+      "method": "CC",
+      "status": "Pending"
+    },
+    {
+      "id": "5089",
+      "customer": "Achyut Parajuli",
+      "date": "2023-04-06",
+      "total": 2564,
+      "method": "CC",
+      "status": "Pending"
+    },
+    {
+      "id": "5089",
+      "customer": "Kaushal Guragain",
+      "date": "2023-04-06",
+      "total": 2564,
+      "method": "CC",
+      "status": "Completed"
+    },
+    {
+      "id": "5089",
+      "customer": "Susan Khadka",
+      "date": "2023-04-06",
+      "total": 2564,
+      "method": "CC",
+      "status": "Completed"
+    },
+    {
+      "id": "5089",
+      "customer": "Abhinabh Khadka",
+      "date": "2023-04-06",
+      "total": 2564,
+      "method": "CC",
+      "status": "Pending"
+    },
+    {
+      "id": "5089",
+      "customer": "Sujit Tiwari",
+      "date": "2023-04-06",
+      "total": 2564,
+      "method": "CC",
+      "status": "Pending"
+    },
+    {
+      "id": "5089",
+      "customer": "Achyut Parajuli",
+      "date": "2023-04-06",
+      "total": 2564,
+      "method": "CC",
+      "status": "Pending"
+    },
+    {
+      "id": "5089",
+      "customer": "Kaushal Guragain",
+      "date": "2023-04-06",
+      "total": 2564,
+      "method": "CC",
+      "status": "Completed"
+    }
+  ]
+}
