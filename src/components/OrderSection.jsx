@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { cn } from "../lib/utils";
 import OrderTable from "./OrderTable";
-import { ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
+import DateRangeFilter from "./DateRange";
+import { ChevronDown } from "lucide-react";
 
 const tabs = ["All Orders", "Completed", "Canceled"];
-const OrderSection = () => {
+
+export default function OrderSection() {
   const [orders, setOrders] = useState([]);
   const [activeTab, setActiveTab] = useState(tabs[0]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -14,6 +16,7 @@ const OrderSection = () => {
   const [totalItems, setTotalItems] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [dateRange, setDateRange] = useState({ start: "", end: "" });
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -34,8 +37,20 @@ const OrderSection = () => {
         if (!response.ok || !metadataResponse.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const data = await response.json();
+        let data = await response.json();
         const metadata = await metadataResponse.json();
+
+        // Apply date range filter
+        if (dateRange.start && dateRange.end) {
+          data = data.filter((order) => {
+            const orderDate = new Date(order.date);
+            return (
+              orderDate >= new Date(dateRange.start) &&
+              orderDate <= new Date(dateRange.end)
+            );
+          });
+        }
+
         setOrders(data);
         setTotalItems(metadata.total);
       } catch (e) {
@@ -45,7 +60,7 @@ const OrderSection = () => {
       }
     };
     fetchOrders();
-  }, [activeTab, statusFilter, currentPage, itemsPerPage]);
+  }, [activeTab, statusFilter, currentPage, itemsPerPage, dateRange]);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -53,6 +68,11 @@ const OrderSection = () => {
 
   const handleItemsPerPageChange = (e) => {
     setItemsPerPage(Number(e.target.value));
+    setCurrentPage(1);
+  };
+
+  const handleDateRangeFilter = (newDateRange) => {
+    setDateRange(newDateRange);
     setCurrentPage(1);
   };
 
@@ -143,28 +163,10 @@ const OrderSection = () => {
               </div>
             </div>
           </div>
-          <div className="relative text-[#8B909A]">
-            <select className="appearance-none shadow-[0_4px_16px_0px_rgba(0,0,0,0.1)] bg-white rounded-md py-3 pl-3 pr-8 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 font-medium text-[15px] leading-[17.63px] tracking-[0.43px]">
-              <option className="">Filter by date range</option>
-            </select>
-            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 pt-0.5">
-              <svg
-                width="10"
-                height="6"
-                viewBox="0 0 10 6"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M1 1L5 5L9 1"
-                  stroke="#8B909A"
-                  strokeWidth="1.75"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
-          </div>
+          <DateRangeFilter
+            onFilterApply={handleDateRangeFilter}
+            initialDateRange={dateRange}
+          />
         </div>
         <OrderTable filteredOrders={filteredOrders} />
         <div className="flex items-center justify-between p-4 bg-white rounded-bl-2xl rounded-br-2xl">
@@ -191,19 +193,30 @@ const OrderSection = () => {
             <button
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
-              className="p-1 rounded-md text-gray-600 disabled:opacity-50"
+              className="p-2 rounded-md bg-gray-100 text-gray-600 disabled:opacity-50"
             >
-              <ChevronLeft className="h-5 w-5" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
             </button>
             {[...Array(totalPages)].map((_, index) => (
               <button
                 key={index}
                 onClick={() => handlePageChange(index + 1)}
                 className={cn(
-                  "w-8 h-8 flex items-center justify-center rounded-md text-sm",
+                  "px-3 py-1 rounded-md",
                   currentPage === index + 1
                     ? "bg-blue-500 text-white"
-                    : "text-gray-600 hover:bg-gray-100"
+                    : "bg-gray-100 text-gray-600"
                 )}
               >
                 {index + 1}
@@ -212,15 +225,24 @@ const OrderSection = () => {
             <button
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
-              className="p-1 rounded-md text-gray-600 disabled:opacity-50"
+              className="p-2 rounded-md bg-gray-100 text-gray-600 disabled:opacity-50"
             >
-              <ChevronRight className="h-5 w-5" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
             </button>
           </div>
         </div>
       </div>
     </div>
   );
-};
-
-export default OrderSection;
+}

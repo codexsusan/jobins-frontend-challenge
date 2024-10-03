@@ -2,6 +2,7 @@
 import { useState } from "react";
 import logo from "../assets/logo.png";
 import indentDecrease from "../assets/indent-decrease.png";
+import indentIncrease from "../assets/indent-increase.png";
 import { Link } from "react-router-dom";
 import { cn } from "../lib/utils";
 
@@ -273,117 +274,146 @@ const ProductListIcon = ({ className }) => {
   );
 };
 
-const Sidebar = () => {
+const Sidebar = ({ isExpanded, toggleSidebar }) => {
   const [activeItem, setActiveItem] = useState("Dashboard");
 
   const menuItems = [
-    {
-      name: "Dashboard",
-      Icon: DashboardIcon,
-      href: "/",
-    },
+    { name: "Dashboard", Icon: DashboardIcon, href: "/" },
     {
       name: "Order Management",
       Icon: OrderManagementIcon,
       href: "/order-management",
     },
-    {
-      name: "Brand",
-      Icon: BrandIcon,
-      href: "/brand",
-    },
+    { name: "Brand", Icon: BrandIcon, href: "/brand" },
   ];
 
   const productItems = [
-    {
-      name: "Add Products",
-      Icon: AddProductsIcon,
-      href: "/add-product",
-    },
-    {
-      name: "Product List",
-      Icon: ProductListIcon,
-      href: "/product-list",
-    },
+    { name: "Add Products", Icon: AddProductsIcon, href: "/add-product" },
+    { name: "Product List", Icon: ProductListIcon, href: "/product-list" },
   ];
 
   return (
-    <>
-      <div className="flex items-center py-[20px] pr-[14px] pl-[18px] gap-x-[10px]">
+    <div className="relative h-full">
+      <div
+        className={`flex items-center py-[20px] ${
+          isExpanded ? "pr-[14px] pl-[18px]" : "justify-center"
+        } gap-x-[10px]`}
+      >
         <img
           className="w-[28px] h-[24px] hover:cursor-pointer"
           src={logo}
           alt="Logo"
         />
-        <h2 className="font-bold text-[22px] leading-[24px] text-[#23272E] hover:cursor-pointer">
-          JoBins
-        </h2>
-        <img
-          className="w-[24px] h-[24px] ml-auto hover:cursor-pointer"
-          src={indentDecrease}
-          alt="Collapse"
-        />
+        {isExpanded && (
+          <h2 className="font-bold text-[22px] leading-[24px] text-[#23272E] hover:cursor-pointer">
+            JoBins
+          </h2>
+        )}
+        {isExpanded && (
+          <img
+            className="w-[24px] h-[24px] ml-auto hover:cursor-pointer"
+            src={indentDecrease}
+            alt="Collapse"
+            onClick={toggleSidebar}
+          />
+        )}
       </div>
       <div className="flex flex-col flex-grow">
-        <div className="px-[18px] py-[15px]">
-          <span className="text-[11px] leading-[14px] font-normal text-[#8B909A]">
-            MAIN MENU
-          </span>
-          <nav className="mt-2 space-y-1">
+        <div
+          className={`px-[18px] py-[15px] ${
+            !isExpanded && "flex flex-col items-center"
+          }`}
+        >
+          {isExpanded && (
+            <span className="text-[11px] leading-[14px] font-normal text-[#8B909A]">
+              MAIN MENU
+            </span>
+          )}
+          <nav
+            className={`mt-2 space-y-1 ${
+              !isExpanded && "flex flex-col items-center"
+            }`}
+          >
             {menuItems.map((item) => (
               <Link
                 key={item.name}
-                to="#"
-                className={`group flex gap items-center px-2 py-2 text-[15px] leading-[22px] rounded-md ${
-                  activeItem === item.name
-                    ? "bg-[#F3F4F8] text-[#23272E] font-semibold"
-                    : "text-[#8B909A] hover:bg-gray-50 hover:text-[#23272E] font-normal"
-                }`}
-                onClick={() => setActiveItem(item.name)}
-              >
-                <item.Icon
-                  className={`mr-2 h-[22px] w-[22px] ${
-                    activeItem === item.name
-                      ? "text-[#23272E]"
-                      : "text-[#8B909A] group-hover:text-[#23272E]"
-                  }`}
-                />
-                <p>{item.name}</p>
-              </Link>
-            ))}
-          </nav>
-        </div>
-        <div className="px-[18px] py-[15px]">
-          <span className="text-[11px] leading-[14px] font-normal text-[#8B909A]">
-            PRODUCTS
-          </span>
-          <nav className="mt-2 space-y-1">
-            {productItems.map((item) => (
-              <Link
-                key={item.name}
-                to="#"
+                to={item.href}
                 className={cn(
-                  "group flex gap items-center px-2 py-2 text-[15px] leading-[22px] rounded-md",
+                  "group flex items-center px-2 py-2 text-[15px] leading-[22px] rounded-md",
                   activeItem === item.name
                     ? "bg-[#F3F4F8] text-[#23272E] font-semibold"
-                    : "text-[#8B909A] hover:bg-gray-50 hover:text-[#23272E] font-normal"
+                    : "text-[#8B909A] hover:bg-gray-50 hover:text-[#23272E] font-normal",
+                  !isExpanded && "justify-center w-12 h-12"
                 )}
                 onClick={() => setActiveItem(item.name)}
               >
                 <item.Icon
-                  className={`mr-2 h-5 w-5 ${
+                  className={cn(
+                    "h-[22px] w-[22px]",
                     activeItem === item.name
                       ? "text-[#23272E]"
-                      : "text-[#8B909A] group-hover:text-[#23272E]"
-                  }`}
+                      : "text-[#8B909A] group-hover:text-[#23272E]",
+                    isExpanded && "mr-2"
+                  )}
                 />
-                {item.name}
+                {isExpanded && <p>{item.name}</p>}
+              </Link>
+            ))}
+          </nav>
+        </div>
+        <div
+          className={`px-[18px] py-[15px] ${
+            !isExpanded && "flex flex-col items-center"
+          }`}
+        >
+          {isExpanded && (
+            <span className="text-[11px] leading-[14px] font-normal text-[#8B909A]">
+              PRODUCTS
+            </span>
+          )}
+          <nav
+            className={`mt-2 space-y-1 ${
+              !isExpanded && "flex flex-col items-center"
+            }`}
+          >
+            {productItems.map((item) => (
+              <Link
+                key={item.name}
+                to={item.href}
+                className={cn(
+                  "group flex items-center px-2 py-2 text-[15px] leading-[22px] rounded-md",
+                  activeItem === item.name
+                    ? "bg-[#F3F4F8] text-[#23272E] font-semibold"
+                    : "text-[#8B909A] hover:bg-gray-50 hover:text-[#23272E] font-normal",
+                  !isExpanded && "justify-center w-12 h-12"
+                )}
+                onClick={() => setActiveItem(item.name)}
+              >
+                <item.Icon
+                  className={cn(
+                    "h-5 w-5",
+                    activeItem === item.name
+                      ? "text-[#23272E]"
+                      : "text-[#8B909A] group-hover:text-[#23272E]",
+                    isExpanded && "mr-2"
+                  )}
+                />
+                {isExpanded && item.name}
               </Link>
             ))}
           </nav>
         </div>
       </div>
-    </>
+      {!isExpanded && (
+        <button
+          onClick={toggleSidebar}
+          className="absolute -right-4 top-4 bg-white border border-gray-200 rounded-full p-1 shadow-md"
+          aria-label="Expand sidebar"
+        >
+          <img className="w-6 h-6" src={indentIncrease} alt="Expand" />
+        </button>
+      )}
+    </div>
   );
 };
 
