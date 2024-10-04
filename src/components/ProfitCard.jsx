@@ -5,7 +5,7 @@ import { formatNumber } from "../lib/number";
 
 const ProfitCard = ({ totalProfit }) => {
   return (
-    <div className="rounded-[16px] bg-white h-full w-3/12 py-5 px-6 flex flex-col justify-between">
+    <div className="rounded-[16px] bg-white min-h-max w-3/12 py-5 px-6 flex flex-col justify-between">
       <div className="flex gap-x-[22px]">
         <img className="w-[43px] h-[43px]" src={yen} alt="yen" />
         <div>

@@ -6,7 +6,7 @@ import { formatNumber } from "../lib/number";
 const SalesCard = ({ totalSalesAndCosts }) => {
 
   return (
-    <div className="rounded-[16px] bg-white h-full w-4/12 flex items-center py-5 overflow-y-hidden">
+    <div className="rounded-[16px] bg-white min-h-full w-4/12 flex items-center py-5 overflow-y-hidden">
       <div className="w-2/5 flex justify-center">
         <img
           className="w-[73px] h-[73px]"

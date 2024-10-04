@@ -31,7 +31,7 @@ const DashboardData = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="flex gap-x-3 w-full h-[200px] mb-[17px]">
+    <div className="flex gap-x-3 w-full h-full mb-[17px]">
       <SalesCard totalSalesAndCosts={data.totalSalesAndCosts} />
       <ProfitCard totalProfit={data.totalProfit} />
       <CountryCard salesByCountry={data.salesByCountry} />

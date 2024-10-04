@@ -30,8 +30,8 @@ const UserInfoCard = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="bg-white rounded-tl-[16px] rounded-tr-[16px] pt-6 h-[167px]">
-      <div className="flex divide-x-2 divide-[#DBDADE] h-full">
+    <div className="bg-white rounded-tl-[16px] rounded-tr-[16px] pt-6 min-h-[167px]">
+      <div className="flex items-center divide-x-2 divide-[#DBDADE] h-full">
         <div className="w-1/3 flex h-full items-center px-10 gap-x-4">
           <img className="w-[71.49px] h-[72px]" src={avatar} alt="avatar" />
           <div>

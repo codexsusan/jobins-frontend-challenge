@@ -9,7 +9,7 @@ import { formatNumber } from "../lib/number";
 
 const CountryCard = ({ salesByCountry }) => {
   return (
-    <div className="rounded-[16px] bg-white h-full w-5/12 py-[31px] px-[24px] space-y-[18px]">
+    <div className="rounded-[16px] bg-white min-h-max w-5/12 py-[31px] px-[24px] space-y-[18px]">
       {salesByCountry &&
         salesByCountry.map((detail, index) => (
           <CountryItem key={index} detail={detail} />
